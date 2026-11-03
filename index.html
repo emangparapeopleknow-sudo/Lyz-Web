@@ -175,7 +175,14 @@
         checkDailyClaim();
         loadNewSentence();
         document.getElementById('hidden-input').focus();
-    }
+   
+        // TAMBAHIN KODE INI BIAR BISA PENCET ENTER
+        document.getElementById('username-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+        login();
+       }
+    });
+   }
 
     function saveData() {
         localStorage.setItem('bilyAppUser', JSON.stringify(user));

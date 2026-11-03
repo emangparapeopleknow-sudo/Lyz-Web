@@ -11,59 +11,73 @@
     }
     * { box-sizing: border-box; }
     body {
-        background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif;
-        margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center;
+        background: radial-gradient(circle at top, #1a2436 0%, #0a0c10 100%);
+        color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif;
+        margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
     }
     
     .hidden { display: none !important; }
-    .btn { padding: 12px 20px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 14px; }
+    .btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 14px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    .btn:active { transform: scale(0.96); }
     .btn-primary { background: var(--accent); color: #000; }
     .btn-primary:hover { background: #c99a34; }
     .btn-blue { background: var(--cursor); color: #000; }
     .btn-blue:hover { background: #3b82f6; color: #fff; }
     .btn-green { background: var(--ok); color: #000; }
     
-    #login-screen { display: flex; flex-direction: column; align-items: center; background: var(--panel); padding: 40px 30px; border-radius: 12px; border: 1px solid var(--line); width: 100%; max-width: 400px; margin-top: 10vh; }
-    #login-screen h1 { color: var(--accent); margin-bottom: 5px; }
+    #login-screen { display: flex; flex-direction: column; align-items: center; background: var(--panel); padding: 40px 30px; border-radius: 16px; border: 1px solid var(--line); width: 100%; max-width: 400px; margin-top: 10vh; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    #login-screen h1 { color: var(--accent); margin-bottom: 5px; text-shadow: 0 0 10px rgba(230,180,80,0.3); }
     #login-screen p { color: var(--text-dim); margin-bottom: 20px; font-size: 14px; }
-    #login-screen input { padding: 12px; font-size: 16px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--text); margin-bottom: 15px; width: 100%; }
+    #login-screen input { padding: 14px; font-size: 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); margin-bottom: 20px; width: 100%; outline: none; transition: 0.2s; }
+    #login-screen input:focus { border-color: var(--accent); box-shadow: 0 0 8px rgba(230,180,80,0.2); }
 
     #app-screen { display: none; flex-direction: column; width: 100%; max-width: 800px; }
-    .top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--panel); padding: 15px 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--line); font-size: 14px; font-weight: bold; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--panel); padding: 15px 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--line); font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
     .top-bar span { color: var(--accent); font-size: 18px; }
     
     .controls { display: flex; gap: 10px; margin-bottom: 20px; width: 100%; justify-content: space-between; }
-    .controls select, .controls button { padding: 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel2); color: var(--text); font-weight: bold; cursor: pointer; }
+    .controls select, .controls button { padding: 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel2); color: var(--text); font-weight: bold; cursor: pointer; }
     .controls select:disabled, .controls button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    #text-display { background-color: var(--panel); border: 1px solid var(--line); padding: 25px; border-radius: 12px; font-size: 20px; line-height: 1.8; letter-spacing: 1px; width: 100%; word-wrap: break-word; user-select: none; }
-    .char { position: relative; }
-    .char.correct { color: var(--ok); }
+    #text-display { 
+        background-color: var(--panel); border: 1px solid var(--line); 
+        padding: 40px 25px; border-radius: 16px; font-size: 24px; line-height: 1.8; 
+        letter-spacing: 1px; width: 100%; word-wrap: break-word; user-select: none; 
+        text-align: center; min-height: 150px; display: flex; align-items: center; justify-content: center; flex-direction: column;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.5); transition: 0.3s;
+    }
+    .char { position: relative; transition: 0.1s; }
+    .char.correct { color: var(--ok); text-shadow: 0 0 5px rgba(74,222,128,0.3); }
     .char.incorrect { color: var(--danger); background: rgba(248, 113, 113, 0.2); border-radius: 3px; }
-    .char.current::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 100%; height: 3px; background-color: var(--cursor); animation: blink 1s infinite; }
+    .char.current::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 100%; height: 3px; background-color: var(--cursor); animation: blink 1s infinite; box-shadow: 0 0 8px var(--cursor); }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     input#hidden-input { position: absolute; opacity: 0; pointer-events: none; }
 
     .bottom-stats { margin-top: 20px; display: flex; gap: 15px; width: 100%; font-size: 14px; }
-    .stat-box { background-color: var(--panel); padding: 15px; border-radius: 8px; text-align: center; flex: 1; border: 1px solid var(--line); }
-    .stat-val { display: block; font-size: 22px; font-weight: bold; color: var(--cursor); margin-top: 5px; }
+    .stat-box { background-color: var(--panel); padding: 15px; border-radius: 12px; text-align: center; flex: 1; border: 1px solid var(--line); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .stat-val { display: block; font-size: 24px; font-weight: bold; color: var(--cursor); margin-top: 5px; text-shadow: 0 0 5px rgba(95,184,255,0.3); }
 
     #creator-screen { display: none; flex-direction: column; width: 100%; max-width: 800px; }
-    .api-panel { background: var(--panel2); border: 1px solid var(--line); padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    .api-panel input { flex: 1; padding: 10px; background: var(--bg); border: 1px solid var(--line); color: white; border-radius: 6px; min-width: 200px; }
+    .api-panel { background: var(--panel2); border: 1px solid var(--line); padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .api-panel input { flex: 1; padding: 12px; background: var(--bg); border: 1px solid var(--line); color: white; border-radius: 8px; min-width: 200px; outline: none; }
+    .api-panel input:focus { border-color: var(--cursor); }
     
-    .form-panel { background: var(--panel); border: 1px solid var(--line); padding: 20px; border-radius: 10px; }
-    textarea { width: 100%; height: 80px; padding: 12px; background: var(--bg); color: white; border: 1px solid var(--line); border-radius: 6px; margin-bottom: 15px; font-family: inherit; resize: vertical; }
-    select, input[type="file"] { padding: 10px; background: var(--bg); color: white; border: 1px solid var(--line); border-radius: 6px; margin-bottom: 15px; width: 100%; }
+    .form-panel { background: var(--panel); border: 1px solid var(--line); padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    label { font-size: 13px; color: var(--text-dim); margin-bottom: 8px; display: block; font-weight: bold; letter-spacing: 0.5px; }
+    textarea { width: 100%; height: 100px; padding: 15px; background: var(--bg); color: white; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; font-family: inherit; resize: vertical; outline: none; font-size: 15px; }
+    textarea:focus { border-color: var(--cursor); box-shadow: 0 0 8px rgba(95,184,255,0.2); }
+    select, input[type="file"] { padding: 12px; background: var(--bg); color: white; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 20px; width: 100%; outline: none; font-size: 14px; }
+    select:focus { border-color: var(--cursor); }
     
-    #mediaPreview, #videoPreview { max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 10px; border: 1px solid var(--line); display: none; }
+    #mediaPreview, #videoPreview { max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 10px; border: 1px solid var(--line); display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
     
-    .output-panel { margin-top: 20px; display: none; }
-    .code-box { background: #000; border: 1px solid var(--accent); padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; white-space: pre-wrap; max-height: 300px; overflow-y: auto; color: var(--ok); margin-bottom: 15px; }
+    .output-panel { margin-top: 20px; display: none; animation: fadeIn 0.5s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .code-box { background: #000; border: 1px solid var(--cursor); padding: 15px; border-radius: 8px; font-family: 'Consolas', monospace; font-size: 13px; white-space: pre-wrap; max-height: 350px; overflow-y: auto; color: var(--ok); margin-bottom: 15px; box-shadow: inset 0 0 15px rgba(95,184,255,0.1); }
     .action-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-    .action-btns button { flex: 1; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; min-width: 120px; }
+    .action-btns button { flex: 1; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; min-width: 120px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
     
-    .loading { text-align: center; color: var(--accent); font-weight: bold; display: none; margin-top: 20px; animation: blink 1s infinite; }
+    .loading { text-align: center; color: var(--accent); font-weight: bold; display: none; margin-top: 25px; animation: blink 1s infinite; font-size: 16px; text-shadow: 0 0 10px rgba(230,180,80,0.5); }
 </style>
 </head>
 <body>
@@ -89,7 +103,7 @@
             <button id="claim-btn" class="btn btn-primary" onclick="claimDaily()">Klaim Harian (50 Poin)</button>
         </div>
 
-        <div id="text-display"></div>
+        <div id="text-display">Ketik apa aja buat mulai...</div>
         <input type="text" id="hidden-input" autocomplete="off">
 
         <div class="bottom-stats">
@@ -97,25 +111,25 @@
             <div class="stat-box"><span id="accuracy">100%</span>Akurasi</div>
         </div>
 
-        <button class="btn btn-blue" onclick="openCreator()" style="margin-top: 25px; width: 100%; padding: 15px;">🚀 Creator Web (Buat Website Sendiri)</button>
+        <button class="btn btn-blue" onclick="openCreator()" style="margin-top: 25px; width: 100%; padding: 16px; font-size: 16px;">🚀 Creator Web (Buat Website Sendiri)</button>
     </div>
 
     <!-- SCREEN 3: CREATOR WEB -->
     <div id="creator-screen">
-        <div class="top-bar" style="margin-bottom: 10px;">
-            <button class="btn btn-primary" onclick="closeCreator()" style="padding: 8px 15px;">← Kembali ke Ngetik</button>
-            <div>Poin: <span id="creator-points">0</span></div>
+        <div class="top-bar" style="margin-bottom: 15px;">
+            <button class="btn btn-primary" onclick="closeCreator()" style="padding: 8px 15px;">← Kembali</button>
+            <div>Sisa Poin: <span id="creator-points">0</span></div>
         </div>
 
         <div class="api-panel">
             <input type="password" id="apiKeyInput" placeholder="Groq API Key (gsk_...)">
-            <button class="btn btn-primary" onclick="saveApiKey()">Simpan Key</button>
-            <span id="apiStatus" style="font-size: 12px; color: var(--danger);">Belum diset</span>
+            <button class="btn btn-primary" onclick="saveApiKey()">Simpan</button>
+            <span id="apiStatus" style="font-size: 12px; color: var(--danger); font-weight: bold;">Belum diset</span>
         </div>
 
         <div class="form-panel">
-            <label>Prompt / Perintah:</label>
-            <textarea id="promptInput" placeholder="Contoh: Bikin web jualan sepatu. Ada foto sepatu di tengah."></textarea>
+            <label>Prompt / Perintah Web:</label>
+            <textarea id="promptInput" placeholder="Contoh: Bikin web portofolio gue, warnanya item doang, ada foto gue di tengah."></textarea>
             
             <label>Pilih Tipe Web:</label>
             <select id="webType">
@@ -130,13 +144,13 @@
             <img id="mediaPreview" src="" alt="Preview">
             <video id="videoPreview" controls></video>
 
-            <button class="btn btn-blue" id="generateBtn" onclick="generateWeb()" style="width: 100%; margin-top: 10px;">🚀 GENERATE WEB CODE</button>
+            <button class="btn btn-blue" id="generateBtn" onclick="generateWeb()" style="width: 100%; margin-top: 10px; padding: 16px; font-size: 16px;">🚀 GENERATE WEB CODE</button>
         </div>
 
         <div class="loading" id="loadingText">AI lagi mikir... Sabar ya...</div>
 
         <div class="output-panel" id="outputPanel">
-            <h3>Hasil Kode (HTML + CSS + JS):</h3>
+            <h3 style="color: var(--cursor); margin-bottom: 10px;">Hasil Kode (HTML + CSS + JS):</h3>
             <div class="code-box" id="codeOutput"></div>
             
             <div class="action-btns">
@@ -289,7 +303,12 @@
                 currentLevel++; user.level = currentLevel;
                 saveData(); generateLevelSelect();
                 document.getElementById('text-display').style.borderColor = "var(--ok)";
-                setTimeout(() => { document.getElementById('text-display').style.borderColor = "var(--line)"; loadNewSentence(); }, 400);
+                document.getElementById('text-display').style.boxShadow = "0 0 20px rgba(74,222,128,0.4)";
+                setTimeout(() => { 
+                    document.getElementById('text-display').style.borderColor = "var(--line)"; 
+                    document.getElementById('text-display').style.boxShadow = "inset 0 0 20px rgba(0,0,0,0.5)";
+                    loadNewSentence(); 
+                }, 400);
             }
         }
     });
@@ -398,7 +417,7 @@
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    model: "llama3-70b-8192",
+                    model: "llama-3.3-70b-versatile", // Model Terbaru
                     messages: [{ role: "system", content: systemPrompt }, { role: "user", content: promptText }],
                     temperature: 0.7
                 })
@@ -428,7 +447,6 @@
     function downloadCode() { if(!generatedHTML) return; const blob = new Blob([generatedHTML], {type: 'text/html'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click(); }
     function previewCode() { if(!generatedHTML) return; const w = window.open(); w.document.write(generatedHTML); w.document.close(); }
 
-    // Cek login & Tombol Enter
     if (user) {
         document.getElementById('username-input').value = user.name;
     }
